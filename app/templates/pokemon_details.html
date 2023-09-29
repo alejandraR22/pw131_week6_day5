@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Pokemon Details </title>
+</head>
+<body>
+    <h1>{{name}}</h1>
+    <h2>Stats:</h2>
+    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/132.png" alt="Shiny Pokemon Image">
+
+    <h2>Base Stas:</h2>
+    <ul>
+        {% for stat in stats %}
+          <li>{{ stat.name }}: {{stat.value}}</li>
+        {% endfor %}
+    </ul>
+    <h2>Abilites:</h2>
+    <ul>
+        {% for ability in abilites %}
+          <li>{{ability}}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
