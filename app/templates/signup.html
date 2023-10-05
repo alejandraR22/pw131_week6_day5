@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Register</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
 </head>
 <body>
-    <h1>Register</h1>
+    <h1>Sign Up</h1>
     <form method="POST" action="{{ url_for('authentication.signup') }}">
-        {{ form.hidden_tag() }}
-        
+        {{ form.hidden_tag() }} 
+
         <div class="form-group">
             {{ form.first_name.label(class="form-label") }}
             {{ form.first_name(class="form-control", placeholder="Enter your first name") }}
@@ -28,7 +30,8 @@
             {{ form.password(class="form-control", placeholder="Enter your password") }}
         </div>
 
-        <button type="submit" class="btn btn-primary">Register</button>
+        <button type="submit" class="btn btn-primary">Sign Up</button>
     </form>
 </body>
 </html>
+

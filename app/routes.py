@@ -1,10 +1,12 @@
-from flask import render_template, request, redirect, url_for, flash
+from flask import render_template, request, redirect, url_for, flash,  Blueprint
 from flask_login import login_user, current_user
 from app import app, db
 from .models import User
-import json
+from .forms import RegistrationForm, LoginForm
 from werkzeug.security import generate_password_hash
 import requests
+
+authentication_bp= Blueprint('authentication', __name__)
 
 @app.route('/')
 def home():
@@ -25,14 +27,13 @@ def pokemon_form():
 
     return render_template('pokemon_form.html')
 
-@app.route('/login', methods=['GET', 'POST'])
+@authentication_bp.route('/login', methods=['GET', 'POST'])
 def login():
-    if current_user.is_authenticated:
-        return redirect(url_for('home'))
-
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
+    form = LoginForm()
+    
+    if form.validate_on_submit():
+        username=form.username.data
+        password = form.password.data
 
         user = User.query.filter_by(username=username).first()
 
@@ -43,7 +44,31 @@ def login():
         else:
             flash('Login failed. Please check your username and password.', 'danger')
 
-    return render_template('login.html')
+    return render_template('login.html', form=form)
+
+@authentication_bp.route('/signup', methods=['GET', 'POST'])
+def signup():
+    form = RegistrationForm()  
+
+    if form.validate_on_submit(): 
+        username = form.username.data
+        password = form.password.data
+
+        existing_user = User.query.filter_by(username=username).first()
+
+        if existing_user:
+            flash('Username already in use. Please choose a different username.', 'danger')
+        else:
+            hashed_password = generate_password_hash(password)
+            new_user = User(username=username, password=hashed_password)
+
+            db.session.add(new_user)
+            db.session.commit()
+
+            flash('Registration successful! You can now log in.', 'success')
+            return redirect(url_for('authentication.login'))  
+
+    return render_template('signup.html', form=form)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
