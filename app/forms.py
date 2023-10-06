@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, PasswordField, SubmitField, IntegerField
 from wtforms.validators import DataRequired, Email, Length
 
 class RegistrationForm(FlaskForm):
@@ -28,4 +28,9 @@ class EditProfileForm(FlaskForm):
     password = PasswordField('Password', validators=[Length(min=6)])
     submit = SubmitField('Update Profile')
     
-
+class PokemonForm(FlaskForm):
+    name = StringField('Name')
+    hp = IntegerField('HP')
+    base_attack = IntegerField('Base Attack')
+    base_defense = IntegerField('Base Defense')
+    submit = SubmitField('Add Pokémon')

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Pokémon</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <h1>Add Pokémon</h1>
+    
+    <form method="POST" action="{{ url_for('authentication.pokemon_form') }}">
+        {{ form.hidden_tag() }}
+        
+        <label for="name">Pokémon Name:</label>
+        <input type="text" id="name" name="name" required>
+        
+        
+        <input type="submit" value="Add Pokémon">
+    </form>
+    
+    <a href="{{ url_for('list_pokemon') }}">Back to Pokémon List</a>
+</body>
+</html>

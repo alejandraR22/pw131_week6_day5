@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Attack User</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <h1>Attack User</h1>
+    
+    <h2>User's Pokémon</h2>
+    <ul>
+        {% for pokemon in user.pokemon_collection %}
+            <li>{{ pokemon.name }} - Level: {{ pokemon.level }}</li>
+        {% endfor %}
+    </ul>
+    
+    <h2>Your Pokémon</h2>
+    <ul>
+        {% for pokemon in current_user.pokemon_collection %}
+            <li>{{ pokemon.name }} - Level: {{ pokemon.level }}</li>
+        {% endfor %}
+    </ul>
+    
+    <form method="POST" action="{{ url_for('authentication.initiate_attack', user_id=user.id) }}">
+        <label for="selected_pokemon">Select Your Pokémon:</label>
+        <select name="selected_pokemon" id="selected_pokemon">
+            {% for pokemon in current_user.pokemon_collection %}
+                <option value="{{ pokemon.id }}">{{ pokemon.name }}</option>
+            {% endfor %}
+        </select>
+        
+        <label for="attack_power">Attack Power:</label>
+        <input type="text" name="attack_power" id="attack_power">
+        
+        <input type="submit" value="Attack">
+    </form>
+</body>
+</html>
+
+

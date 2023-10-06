@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Find Other Users</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <h1>Find Other Users</h1>
+    
+    <ul>
+        {% for user in users %}
+            <li>{{ user.username }} <a href="{{ url_for('authentication.attack_user', user_id=user.id) }}" class="btn btn-primary">Attack</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

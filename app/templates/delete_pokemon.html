@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Pokémon</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <h1>Delete Pokémon</h1>
+    
+    <h2>{{ pokemon.name }} - Level: {{ pokemon.level }}</h2>
+    
+    <p>Are you sure you want to delete this Pokémon?</p>
+    
+    <form method="POST" action="{{ url_for('delete_pokemon', pokemon_id=pokemon.id) }}">
+        <input type="submit" value="Delete">
+    </form>
+    
+    <a href="{{ url_for('list_pokemon') }}">Back to Pokémon List</a>
+</body>
+</html>
