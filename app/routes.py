@@ -1,10 +1,11 @@
 from flask import render_template, request, redirect, url_for, flash,  Blueprint
-from flask_login import login_user, current_user
+from flask_login import login_user, current_user, login_required
 from app import app, db
-from .models import User
-from .forms import RegistrationForm, LoginForm
+from .models import User, Pokemon
+from .forms import RegistrationForm, LoginForm, EditProfileForm
 from werkzeug.security import generate_password_hash
 import requests
+from . import is_pokemon_collected
 
 authentication_bp= Blueprint('authentication', __name__)
 
@@ -16,10 +17,20 @@ def home():
 def pokemon_form():
     if request.method == 'POST':
         pokemon_name = request.form['pokemon_name']
+        if is_pokemon_collected(pokemon_name):
+            return render_template('pokemon_form.html', error= "You already have this Pokemon in your collection")
+        
+        if len(current_user.pokemon_collection) >=5:
+            return render_template('pokemon_form.html', error="You already have 5 or more Pokemon in your collection")
 
         name, stats, abilities, front_shiny = fetch_pokemon_data(pokemon_name)
-
+        
         if name is not None:
+            
+            new_pokemon = Pokemon(name=pokemon_name, user_id=current_user.id)
+            db.session.add(new_pokemon)
+            db.session.commit()
+            
             flash(f'Pokémon {pokemon_name} added to your collection!', 'success')
             return render_template('pokemon_details.html', name=name, stats=stats, abilities=abilities, front_shiny=front_shiny)
         else:
@@ -109,3 +120,29 @@ def fetch_pokemon_data(pokemon_name):
     else:
         flash(f'Pokémon {pokemon_name} not found!', 'error')
         return None, None, None, None
+
+@app.route('/edit_profile', methods=['GET', 'POST'])
+@login_required
+def edit_profile():
+    form = EditProfileForm()
+    if form.validate_on_submit():
+        current_user.first_name = form.first_name.data
+        current_user.last_name = form.last_name.data
+        current_user.email = form.email.data
+        
+        if form.password.data:
+            current_user.set_password(form.password.data)
+        db.session.commit()
+        
+        flash('Profile updated successfully!', 'success')
+        return redirect(url_for('edit_profile'))
+    
+    elif request.method == 'GET':
+        form.first_name.data = current_user.first_name
+        form.last_name.data = current_user.last_name
+        form.email.data = current_user.email
+        
+    return render_template('edit_profile.html', form=form)
+
+
+

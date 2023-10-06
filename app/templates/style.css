@@ -1,0 +1,100 @@
+
+body, h1, h2, p {
+    margin: 0;
+    padding: 0;
+  }
+  
+  
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+  }
+  
+  header {
+    background-color: #e8502a;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+  }
+  
+ 
+#pokemon-image {
+    margin-top: 20px;
+    text-align: center;
+    border: 2px solid #e8502a; 
+    padding: 10px; 
+    border-radius: 5px; 
+  }
+  
+  
+  nav {
+    background-color: #0056b3;
+    color: #fff;
+  }
+  
+  nav ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  nav li {
+    display: inline;
+    margin-right: 20px;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #e8502a; 
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+  
+  .btn:hover {
+    background-color: #ff6600; 
+  }
+  
+
+  form {
+    margin: 20px 0;
+  }
+  
+  input[type="text"],
+  input[type="password"],
+  textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  
+  input[type="submit"] {
+    background-color: #0056b3;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  input[type="submit"]:hover {
+    background-color: #003a74; 
+  }
+  
+.alert {
+  background-color: #ff6666;
+  color: white;
+  padding: 10px; 
+  border-radius: 5px; 
+  margin-bottom: 10px; 
+}

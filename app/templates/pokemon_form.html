@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" type="text/css" href="styles.css">
     <title>Enter Pokemon Name</title>
 </head>
 <body>
@@ -11,6 +12,18 @@
         <button type="submit">Submit</button>
     </form>
 
+    <h1>Catch Pokemon</h1>
+    
+    {% if error %}
+    <div class="alert alert-danger">
+        {{ error }}
+    </div>
+    {% endif %}
+    
+    <form method="POST" action="/pokemon">
+        
+        <button type="submit">Catch Pokemon</button>
+    </form>
 </body>
 </html>
 
