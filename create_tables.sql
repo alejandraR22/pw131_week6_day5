@@ -1,10 +1,10 @@
-CREATE TABLE users (
+CREATE TABLE user (
     id serial PRIMARY KEY,
     username VARCHAR(100) UNIQUE NOT NULL,
     password VARCHAR(100) NOT NULL
 );
 
-INSERT INTO users (username, password) VALUES ('example_user', 'example_password');
+INSERT INTO user (username, password) VALUES ('example_user', 'example_password');
 
 
 CREATE TABLE trainers (

@@ -3,28 +3,34 @@ from flask_login import LoginManager
 from config import Config
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
+from .models import db,User
 
-app =Flask(__name__)
-app.config.from_object(Config)
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
 
+migrate = Migrate()
 login_manager = LoginManager()
+
+app = Flask(__name__)
+app.config.from_object(Config)
+
+db.init_app(app)
+migrate.init_app(app, db)
 login_manager.init_app(app)
+login_manager.login_view = "auth.login"
 
-login_manager.login_view = "login"
+@login_manager.user_loader
+def user_loader(id):
+    return User.query.filter_by(id=id).one_or_none()
 
-def create_app():
-    app = Flask(__name__)
-    app.config.from_object('config')  
+from .auth import auth_bp
+app.register_blueprint(auth_bp)
 
-    db.init_app(app)
-    migrate.init_app(app, db)
-    login_manager.init_app(app)
+from .pokemon import pokemon_bp
+app.register_blueprint(pokemon_bp)
 
-    return app
+from .site import site_bp
+app.register_blueprint(site_bp)
 
 
-if __name__ == "__main__":
-    app.run(debug=True)
+
+
     

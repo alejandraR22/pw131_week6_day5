@@ -6,9 +6,11 @@ body, h1, h2, p {
   
   
   body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
-    color: #333;
+    background-image: url('https://img.redbull.com/images/w_1620/q_auto,f_auto/redbullcom/2016/09/20/1331818966444_2/pokémon-super-mystery-dungeon.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
   }
   
   header {
@@ -27,9 +29,8 @@ body, h1, h2, p {
     border-radius: 5px; 
   }
   
-  
   nav {
-    background-color: #0056b3;
+    background-color: #fac115;
     color: #fff;
   }
   
@@ -92,7 +93,7 @@ body, h1, h2, p {
   }
   
 .alert {
-  background-color: #ff6666;
+  background-color: #5cb85c;
   color: white;
   padding: 10px; 
   border-radius: 5px; 
