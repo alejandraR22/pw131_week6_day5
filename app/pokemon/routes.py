@@ -21,11 +21,11 @@ def pokemon_form():
 
         if is_pokemon_collected(pokemon_name):
             flash(f"You already have {pokemon_name} Pokémon in your collection", 'danger')
-            return redirect(url_for('authentication.pokemon_form'))
+            return redirect(url_for('pokemon.pokemon_form'))
 
         if len(current_user.pokemon_collection) >= 5:
             flash(f"You already have 5 or more Pokémon in your collection", 'danger')
-            return redirect(url_for('authentication.pokemon_form'))
+            return redirect(url_for('pokemon.pokemon_form'))
 
         name, stats, abilities, front_shiny = fetch_pokemon_data(pokemon_name)
 
@@ -165,7 +165,7 @@ def battle(user_id):
 
     db.session.commit()
 
-    return redirect(url_for('authentication.battle_result', user_id=user_id))
+    return redirect(url_for('pokemon.battle_result', user_id=user_id))
 
 @pokemon.route('/battle_result/<int:user_id>')
 @login_required

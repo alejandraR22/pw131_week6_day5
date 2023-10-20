@@ -1,30 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" type="text css" href="{{ url_for('static', filename='style.css') }}">
 
-    <title>Enter Pokemon Name</title>
+    <title>Catch a Pokémon</title>
 </head>
 <body>
-    <h1>Enter a Pokemon Name</h1>
+    <h1>Catch a Pokémon</h1>
     <form method="POST" action="/pokemon">
         <label for="pokemon_name">Pokemon Name</label>
         <input type="text" id="pokemon_name" name="pokemon_name" required>
         <button type="submit">Submit</button>
     </form>
 
-    <h1>Catch Pokemon</h1>
+    <h1>Catch Pokémon</h1>
     
     {% if error %}
     <div class="alert alert-danger">
         {{ error }}
     </div>
     {% endif %}
-    
-    <form method="POST" action="/pokemon">
-        
-        <button type="submit">Catch Pokemon</button>
-    </form>
+
+    {% if pokemon_name %}
+    <div class="pokemon-info">
+        <h2>Pokémon Info</h2>
+        <p>Name: {{ pokemon_name }}</p>
+        <p>Stats: {{ pokemon_stats }}</p>
+        <p>Abilities: {{ pokemon_abilities }}</p>
+        <img src="{{ pokemon_front_shiny }}" alt="Pokémon">
+    </div>
+    {% endif %}
 </body>
 </html>
+
 

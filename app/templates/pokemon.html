@@ -2,37 +2,33 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-
     <title>Search Pokémon</title>
 </head>
 <body>
     <h1>Search for a Pokémon</h1>
-    <form method="POST">
+    <form method="POST" onsubmit="fetchPokemonImage(event); return false;">
         <label for="pokemon_name">Enter Pokémon Name:</label>
         <input type="text" id="pokemon_name" name="pokemon_name" required>
         <button type="submit">Search</button>
     </form>
 
     <div id="pokemon-image"></div>
-        <script>
-            function fetchPokemonImage(event) {
-                event.preventDefault();
-    
-                const pokemonName = document.getElementById("pokemon_name").value.toLowerCase();
-    
-                const apiUrl = `https://pokeapi.co/api/v2/pokemon/${pokemonName}/`;
-    
-                fetch(apiUrl)
-                    .then(response => response.json())
-                    .then(data => {
 
-                        const imageUrl = data.sprites.front_default;
+    <script>
+        function fetchPokemonImage(event) {
+            event.preventDefault();
 
+            const pokemonName = document.getElementById("pokemon_name").value.toLowerCase();
+            const apiUrl = `https://pokeapi.co/api/v2/pokemon/${pokemonName}/`;
+
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    const imageUrl = data.sprites.front_default;
                     const imgElement = document.createElement("img");
                     imgElement.src = imageUrl;
-
                     const pokemonImageDiv = document.getElementById("pokemon-image");
-                    pokemonImageDiv.innerHTML = ""; 
+                    pokemonImageDiv.innerHTML = "";
                     pokemonImageDiv.appendChild(imgElement);
                 })
                 .catch(error => {
@@ -41,8 +37,6 @@
                 });
         }
     </script>
-
-
 </body>
 </html>
 

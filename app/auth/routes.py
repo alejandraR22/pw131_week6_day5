@@ -1,5 +1,6 @@
 from . import auth_bp as auth
 from ..forms import LoginForm,RegistrationForm,EditProfileForm
+from datetime import datetime
 from ..models import User,db
 from flask import flash,redirect,url_for,render_template,request
 from flask_login import login_user,logout_user,login_required,current_user
@@ -19,7 +20,7 @@ def login():
         if user and user.check_password(password):
             login_user(user)
             flash('Login successful!', 'success')
-            return redirect(url_for('index'))
+            return redirect(url_for('site.index'))
         else:
             flash(f'Login failed. Please check your username and password.', 'danger')
 
@@ -32,6 +33,9 @@ def signup():
     if form.validate_on_submit():
         username = form.username.data
         password = form.password.data
+        first_name = form.first_name.data 
+        last_name = form.last_name.data
+        email = form.email.data
 
         existing_user = User.query.filter_by(username=username).first()
 
@@ -39,7 +43,15 @@ def signup():
             flash(f'Username already in use. Please choose a different username.', 'danger')
         else:
             hashed_password = generate_password_hash(password)
-            new_user = User(username=username, password=hashed_password)
+            new_user = User(
+                username=username,
+                password=hashed_password,
+                first_name=first_name, 
+                last_name=last_name,
+                email=email,
+                date_created=datetime.utcnow(),
+                pokemon_collection=None  
+            )
 
             db.session.add(new_user)
             db.session.commit()
@@ -48,6 +60,7 @@ def signup():
             return redirect(url_for('auth.login'))
 
     return render_template('signup.html', form=form)
+
 
 @auth.route('/logout')
 @login_required
@@ -72,14 +85,14 @@ def edit_profile():
         db.session.commit()
 
         flash(f'Profile updated successfully!', 'success')
-        return redirect(url_for('auth.edit_profile'))
+        return redirect(url_for('edit_profile'))
 
     elif request.method == 'GET':
         form.first_name.data = current_user.first_name
         form.last_name.data = current_user.last_name
         form.email.data = current_user.email
 
-    return render_template('auth.edit_profile.html', form=form)
+    return render_template('edit_profile.html', form=form)
 
 @auth.route('/delete_account', methods=['GET', 'POST'])
 @login_required

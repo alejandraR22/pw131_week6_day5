@@ -7,7 +7,7 @@ class Config():
     FLASK_APP= os.environ.get("FLASK_APP")
     FLASK_DEBUG = os.environ.get("DEBUG")
     SECRET_KEY = os.environ.get("SECRET_KEY")
-    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URI",'sqlite:///' + os.path.join(basedir, 'app.db'))
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URI")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     
     

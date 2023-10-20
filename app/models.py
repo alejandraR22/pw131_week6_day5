@@ -15,6 +15,7 @@ class User(db.Model,UserMixin):
     email = db.Column(db.String(120), unique=True ,nullable =False)
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
     pokemon_collection = db.Column(db.String(120))
+    
 
     def set_password(self, password):
         self.password = generate_password_hash(password)
@@ -29,6 +30,7 @@ class Pokemon(db.Model):
     name = db.Column(db.String(100))
     type = db.Column(db.String(50))
     level = db.Column(db.Integer)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     trainer_id = db.Column(db.Integer, db.ForeignKey('trainer.id'))
     trainer = db.relationship('Trainer', backref='pokemons')
     

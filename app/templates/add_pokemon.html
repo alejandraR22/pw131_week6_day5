@@ -3,12 +3,21 @@
 <head>
     <title>Add Pokémon</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            background-image: url('https://img.redbull.com/images/c_fill,g_auto,w_830,h_553/q_auto:low,f_auto/redbullcom/2016/01/27/1331773363728_2/ash-and-company');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+        }
+    </style>
 
 </head>
 <body>
     <h1>Add Pokémon</h1>
     
-    <form method="POST" action="{{ url_for('authentication.pokemon_form') }}">
+    <form method="POST" action="{{ url_for('pokemon.pokemon_form') }}">
         {{ form.hidden_tag() }}
         
         <label for="name">Pokémon Name:</label>
@@ -18,6 +27,6 @@
         <input type="submit" value="Add Pokémon">
     </form>
     
-    <a href="{{ url_for('list_pokemon') }}">Back to Pokémon List</a>
+    <a href="{{ url_for('pokemon.list_pokemon') }}">Back to Pokémon List</a>
 </body>
 </html>

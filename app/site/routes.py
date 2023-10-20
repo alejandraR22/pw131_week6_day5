@@ -4,4 +4,4 @@ from . import site_bp as site
 
 @site.route("/")
 def index():
-    return render_template('index.html')
+    return render_template('site.index.html')

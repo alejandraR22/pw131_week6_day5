@@ -3,14 +3,13 @@
 <head>
     <title>Your Pokémon Collection</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-
 </head>
 <body>
     <h1>Your Pokémon Collection</h1>
-    
+
     <ul>
         {% for pokemon in pokemon_collection %}
-            <li>{{ pokemon.name }} - Level: {{ pokemon.level }}</li>
+            <li>ID: {{ pokemon.id }} - Name: {{ pokemon.name }} - Level: {{ pokemon.level }}</li>
             <div class="pokemon-item">
                 <img src="{{ pokemon.front_shiny_image }}" alt="{{ pokemon.name }}">
                 <p>{{ pokemon.name }}</p>
@@ -18,10 +17,10 @@
                     <button type="submit" class="btn btn-danger">Remove</button>
                 </form>
             </div>
-            
         {% endfor %}
     </ul>
-    
-    <a href="{{ url_for('auth.pokemon_form') }}">Add Pokémon</a>
+
+    <a href="{{ url_for('pokemon.pokemon_form') }}">Add Pokémon</a>
 </body>
 </html>
+
